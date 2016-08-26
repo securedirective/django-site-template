@@ -1,0 +1,16 @@
+{% load staticfiles %}<!doctype html>
+<html>
+
+<head>
+	<title>Django Template Site</title>
+	<link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+
+<body>
+{% block content_outer %}
+<h1>Django Template Site</h1>
+{% block content %}{% endblock %}
+{% endblock %}
+</body>
+
+</html>

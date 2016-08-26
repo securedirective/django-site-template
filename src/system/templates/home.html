@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+<p class="css-test" style="color:red">If this text is green, then "{% static 'css/base.css' %}" is working.</p>
+<p><a href="{% url 'sampleapp:index' %}">Sample app</a></p>
+{% endblock %}
