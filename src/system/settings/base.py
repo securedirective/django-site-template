@@ -14,6 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+VENV_DIR = os.path.dirname(BASE_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'system.urls'
 TEMPLATES = [
 	{
 		'BACKEND': 'django.template.backends.django.DjangoTemplates',
-		'DIRS': [],
+		'DIRS': [os.path.join(BASE_DIR, "system", "templates")],
 		'APP_DIRS': True,
 		'OPTIONS': {
 			'context_processors': [
@@ -76,7 +77,7 @@ WSGI_APPLICATION = 'system.wsgi.application'
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': os.path.join(BASE_DIR, '../development.sqlite3'),
+		'NAME': os.path.join(VENV_DIR, 'development.sqlite3'),
 	}
 }
 
@@ -117,4 +118,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+# Specify the location for collected static files
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(VENV_DIR, "collected_static")
+STATICFILES_DIRS = (
+	# Include the static directory in the list of directories that 'python manage.py collectstatic'
+	#     copies files from (each app's static directory is already included by default)
+	os.path.join(BASE_DIR, "system", "static"),
+)
+
+# Specify the location for user-uploaded media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(VENV_DIR, "uploaded_media")
