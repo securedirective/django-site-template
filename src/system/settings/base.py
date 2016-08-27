@@ -17,18 +17,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 VENV_DIR = os.path.dirname(BASE_DIR)
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '989pf4zm#29tvw#i_l6gaw61dhbt53+7six-hn3irj8#t7-*oi'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +26,7 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
+	'django_generate_secret_key',
 
 	'sampleapp',
 ]
@@ -72,17 +61,40 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'system.wsgi.application'
 
+PREPEND_WWW = True
+
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
+	# SQLite backend
+	# https://docs.djangoproject.com/en/1.10/ref/databases/#sqlite-notes
 	'default': {
 		'ENGINE': 'django.db.backends.sqlite3',
 		'NAME': os.path.join(VENV_DIR, 'development.sqlite3'),
-	}
+	},
+	# MySQL/MariaDB backend (must also install the mysqlclient pip package)
+	# https://docs.djangoproject.com/en/1.10/ref/databases/#mysql-notes
+	# 'default': {
+	# 	'ENGINE': 'django.db.backends.mysql',
+	# 	'NAME': 'djangotemplate',
+	# 	'USER': 'sampleuser',
+	# 	'PASSWORD': 'samplepass',
+	# 	'HOST': '127.0.0.1',
+	# 	'PORT': '5432',
+	# },
+	# PostgreSQL backend (must also install python-psycopg2)
+	# https://docs.djangoproject.com/en/1.10/ref/databases/#postgresql-notes
+	# 'default': {
+	# 	'ENGINE': 'django.db.backends.postgresql',
+	# 	'NAME': 'djangotemplate',
+	# 	'USER': 'sampleuser',
+	# 	'PASSWORD': 'samplepass',
+	# 	'HOST': '127.0.0.1',
+	# 	'PORT': '5432',
+	# },
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -108,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
