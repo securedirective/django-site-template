@@ -132,8 +132,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-# Specify the location for collected static files
+# Base URL to use for static files when {% static '<file>' %} is used
 STATIC_URL = '/static/'
+# Location to collect static files to when the collectstatic command is run
 STATIC_ROOT = os.path.join(VENV_DIR, "collected_static")
 STATICFILES_DIRS = (
 	# Include the static directory in the list of directories that 'python manage.py collectstatic'
@@ -141,6 +142,7 @@ STATICFILES_DIRS = (
 	os.path.join(BASE_DIR, "system", "static"),
 )
 
-# Specify the location for user-uploaded media files
+# Base URL to use for media files; access from templates with {{ MEDIA_URL }} if django.template.context_processors.media is configured
 MEDIA_URL = '/media/'
+# Location to hold user-uploaded files
 MEDIA_ROOT = os.path.join(VENV_DIR, "uploaded_media")

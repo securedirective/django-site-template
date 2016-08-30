@@ -3,4 +3,10 @@ include
 lib
 pip-selfcheck.json
 __pycache__
+*.pyc
 development.sqlite3
+collected_static
+uploaded_media
+*.log
+*.sock
+secretkey.txt
