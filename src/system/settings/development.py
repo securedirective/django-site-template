@@ -7,3 +7,5 @@ SECRET_KEY = '00000000000000000000000000000000000000000000000000'
 
 # Restrict host/domain names (ignored if DEBUG=True)
 ALLOWED_HOSTS = []
+
+_CONFIG_FILE = "development"

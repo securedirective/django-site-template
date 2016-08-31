@@ -3,6 +3,7 @@
 {% load staticfiles %}
 
 {% block content %}
+<p>Current settings file: <b>{{ settings_file }}</b></p>
 <p class="css-test" style="color:red">If this text is green, then "{% static 'css/base.css' %}" is working.</p>
 <p><a href="{% url 'sampleapp:index' %}">Sample app</a></p>
 {% endblock %}

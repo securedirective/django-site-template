@@ -9,3 +9,5 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'secretkey.tx
 
 # Restrict host/domain names
 ALLOWED_HOSTS = ['.djangotemplate.tech']
+
+_CONFIG_FILE = "production"

@@ -146,3 +146,5 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 # Location to hold user-uploaded files
 MEDIA_ROOT = os.path.join(VENV_DIR, "uploaded_media")
+
+_CONFIG_FILE = "base"
