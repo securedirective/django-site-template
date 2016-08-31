@@ -19,27 +19,24 @@ if __name__ == '__main__':
 # Create your views here.
 from confgen_conf import *
 
-for render in renders:
-	if not 'template' in render:
-		print('Template file not specified; skipping this item...')
-		print(render)
-		continue
-	if not 'output' in render:
-		print('Output file not specified; skipping this item...')
-		print(render)
+for outputfile, context in output_files.items():
+	print('\nGenerating ' + outputfile + '...')
+
+	if not 'template' in context:
+		print('Template file not specified: ' + str(context))
 		continue
 
 	try:
-		output = render_to_string(render['template'], render)
+		output = render_to_string(context['template'], context)
 	except Exception as e:
-		print('Error rendering template '+render['template']+':\n\t' + str(e))
+		print('Error rendering template '+context['template']+': ' + str(e))
 
 	file = None
 	try:
-		file = open(render['output'], 'w')
+		file = open(outputfile, 'w')
 		file.write(output)
-		print('Generated output file: ' + render['output'])
+		print('Done')
 	except Exception as e:
-		print('Error writing output to '+render['output']+':\n\t' + str(e))
+		print('Error writing output: ' + str(e))
 	finally:
 		if file: file.close()

@@ -10,10 +10,10 @@ print('Generating config files for ' + ['PRODUCTION','STAGING'][is_staging] + ' 
 
 if is_staging:
 	venv = '/home/'+unix_user+'/'+project_name+'-staging'
-	renders = [
+	output_files = {
 		# nginx config for /etc/nginx/sites-available
-		{ 'output': 'nginx.conf',
-			'template': 'confgen_nginx.tmpl',
+		'nginx.conf': {
+			# 'template': 'confgen_nginx.tmpl',
 			'venv': venv,
 			'domain': domain_name,
 			'port': 81,
@@ -24,20 +24,20 @@ if is_staging:
 		},
 
 		# systemd service file for /ecc/systemd/system
-		{ 'output': 'uwsgi.service',
+		'uwsgi.service': {
 			'template': 'confgen_uwsgi.tmpl',
 			'venv': venv,
 			'unix_user': unix_user,
 			'unix_group': unix_group,
 			'settings_override': 'system.settings.staging',
 		},
-	]
+	}
 
 else:
 	venv = '/home/'+unix_user+'/'+project_name
-	renders = [
+	output_files = {
 		# nginx config for /etc/nginx/sites-available
-		{ 'output': 'nginx-production.conf',
+		'nginx.conf': {
 			'template': 'confgen_nginx.tmpl',
 			'venv': venv,
 			'domain': domain_name,
@@ -51,10 +51,10 @@ else:
 		},
 
 		# systemd service file for /ecc/systemd/system
-		{ 'output': 'uwsgi-production.service',
+		'uwsgi.service': {
 			'template': 'confgen_uwsgi.tmpl',
 			'venv': venv,
 			'unix_user': unix_user,
 			'unix_group': unix_group,
 		},
-	]
+	}
