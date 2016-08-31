@@ -1,0 +1,55 @@
+{% if ssl %}
+# Redirect all HTTP requests to HTTPS
+server {
+	listen									80;
+	server_name								.{{ domain }};
+	return									301 https://www.{{ domain }}$request_uri;
+}
+{% endif %}
+
+# Main server
+server {
+{% if ssl %}
+	listen									{{ ssl_port }} ssl;
+	include									{{ venv }}/ssl.conf;
+	ssl on;
+	{% if ssl_key_bundle %}ssl_certificate							{{ ssl_key_bundle }};{% endif %}
+	{% if ssl_private_key %}ssl_certificate_key						{{ ssl_private_key }};{% endif %}
+	{% if ssl_trusted_ca_cert %}ssl_trusted_certificate					{{ ssl_trusted_ca_cert }};{% endif %}
+{% else %}
+	listen									{{ port }};
+{% endif %}
+
+	server_name								.{{ domain }};
+
+	charset									utf-8;
+
+	error_log								{{ venv }}/nginx-error.log;
+	access_log								{{ venv }}/nginx-access.log;
+
+	# max upload size
+	client_max_body_size					75M;   # adjust to taste
+
+	# Static files
+	location /static/ {
+		alias								{{ venv }}/collected_static/;
+		access_log							off;
+	}
+
+	# Static files
+	location /media/ {
+		alias								{{ venv }}/uploaded_media/;
+		access_log							off;
+	}
+
+	# Finally, send all non-media requests to the Django server.
+	location / {
+		uwsgi_pass							unix://{{ venv }}/uwsgi.sock;
+		include								/etc/nginx/uwsgi_params; # the uwsgi_params file you installed
+	}
+
+	# No need to fill the logs with attempts to access files that don't exist
+	location = /favicon.ico {
+		access_log							off;
+	}
+}

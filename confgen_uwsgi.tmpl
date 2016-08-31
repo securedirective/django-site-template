@@ -3,9 +3,9 @@ Description=Django Template Site
 After=syslog.target
 
 [Service]
-WorkingDirectory=/home/dt/djangotemplate-staging
-Environment=DJANGO_SETTINGS_MODULE=system.settings.staging
-ExecStart=/home/dt/djangotemplate-staging/bin/uwsgi --ini uwsgi.ini
+WorkingDirectory={{ venv }}
+{% if settings_override %}Environment=DJANGO_SETTINGS_MODULE={{ settings_override }}{% endif %}
+ExecStart={{ venv }}/bin/uwsgi --ini uwsgi.ini
 User=dt
 Group=dt
 Restart=on-failure
