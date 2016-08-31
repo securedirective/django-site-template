@@ -1,0 +1,15 @@
+[Unit]
+Description=Django Template Site
+After=syslog.target
+
+[Service]
+WorkingDirectory=/home/dt/djangotemplate-staging
+Environment=DJANGO_SETTINGS_MODULE=system.settings.staging
+ExecStart=/home/dt/djangotemplate-staging/bin/uwsgi --ini uwsgi.ini
+User=dt
+Group=dt
+Restart=on-failure
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
