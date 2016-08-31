@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from django.template.loader import render_to_string
 
 # See https://docs.djangoproject.com/en/1.10/topics/settings/#calling-django-setup-is-required-for-standalone-django-usage
