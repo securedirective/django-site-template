@@ -24,8 +24,8 @@ server {
 
 	charset									utf-8;
 
-	error_log								{{ venv }}/nginx-error.log;
-	access_log								{{ venv }}/nginx-access.log;
+	error_log								/var/log/nginx/{{ domain }}-error.log;
+	access_log								/var/log/nginx/{{ domain }}-access.log;
 
 	# max upload size
 	client_max_body_size					75M;   # adjust to taste

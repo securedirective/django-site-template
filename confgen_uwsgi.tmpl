@@ -6,10 +6,9 @@ After=syslog.target
 WorkingDirectory={{ venv }}
 {% if settings_override %}Environment=DJANGO_SETTINGS_MODULE={{ settings_override }}{% endif %}
 ExecStart={{ venv }}/bin/uwsgi --ini uwsgi.ini
-User=dt
-Group=dt
+User={{ user }}
+Group={{ group }}
 Restart=on-failure
 KillSignal=SIGQUIT
 Type=notify
-StandardError=syslog
 NotifyAccess=all
