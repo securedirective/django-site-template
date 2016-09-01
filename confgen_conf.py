@@ -1,5 +1,5 @@
 project_name = 'djangotemplate'
-domain_name = project_name + '.tech'
+domain_name = 'djangotemplate.tech'
 
 unix_user = 'dt'
 unix_group = 'dt'
@@ -17,8 +17,9 @@ if not is_staging:
 			'template': 'confgen_nginx.tmpl',
 			'venv': venv,
 			'domain': domain_name,
+			'log_prefix': project_name,
 			'port': 80,
-			'ssl': True,
+			'ssl': False,
 			'ssl_port': 443,
 			'key_path': '/etc/letsencrypt/live/'+domain_name,
 			'ssl_key_bundle': '/etc/letsencrypt/live/'+domain_name+'/fullchain.pem',
@@ -44,11 +45,12 @@ else:
 			'template': 'confgen_nginx.tmpl',
 			'venv': venv,
 			'domain': domain_name,
+			'log_prefix': project_name+'-staging',
 			'port': 81,
 			'ssl': False,
 			'ssl_port': 444,
-			'ssl_key_bundle': venv + '/keys/fullchain.pem',
-			'ssl_private_key': venv + '/keys/privkey.pem',
+			'ssl_key_bundle': venv + '/stagingkeys/fullchain.pem',
+			'ssl_private_key': venv + '/stagingkeys/privkey.pem',
 		},
 
 		# systemd service file for /ecc/systemd/system
