@@ -11,6 +11,37 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'secretkey.tx
 # Restrict host/domain names
 ALLOWED_HOSTS = ['.djangotemplate.tech']
 
+# Database
+# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
+DATABASES = {
+	# SQLite backend
+	# https://docs.djangoproject.com/en/1.10/ref/databases/#sqlite-notes
+	'default': {
+		'ENGINE': 'django.db.backends.sqlite3',
+		'NAME': os.path.join(VENV_DIR, 'production.sqlite3'),
+	},
+	# MySQL/MariaDB backend (must also install the mysqlclient pip package)
+	# https://docs.djangoproject.com/en/1.10/ref/databases/#mysql-notes
+	# 'default': {
+	# 	'ENGINE': 'django.db.backends.mysql',
+	# 	'NAME': 'sampledb',
+	# 	'USER': 'sampleuser',
+	# 	'PASSWORD': 'samplepass',
+	# 	'HOST': '127.0.0.1',
+	# 	'PORT': '5432',
+	# },
+	# PostgreSQL backend (must also install python-psycopg2)
+	# https://docs.djangoproject.com/en/1.10/ref/databases/#postgresql-notes
+	# 'default': {
+	# 	'ENGINE': 'django.db.backends.postgresql',
+	# 	'NAME': 'sampledb',
+	# 	'USER': 'sampleuser',
+	# 	'PASSWORD': 'samplepass',
+	# 	'HOST': '127.0.0.1',
+	# 	'PORT': '5432',
+	# },
+}
+
 # Various settings needed to fix warnings from python manage.py check --settings system.settings.production --deploy
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True

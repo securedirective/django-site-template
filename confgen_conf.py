@@ -16,15 +16,11 @@ if not is_staging:
 		project_name+'.conf': {
 			'template': 'confgen_nginx.tmpl',
 			'venv': venv,
+			'project': project_name,
 			'domain': domain_name,
-			'log_prefix': project_name,
 			'port': 80,
 			'ssl': False,
 			'ssl_port': 443,
-			'key_path': '/etc/letsencrypt/live/'+domain_name,
-			'ssl_key_bundle': '/etc/letsencrypt/live/'+domain_name+'/fullchain.pem',
-			'ssl_private_key': '/etc/letsencrypt/live/'+domain_name+'/privkey.pem',
-			'ssl_trusted_ca_cert': '/etc/letsencrypt/live/'+domain_name+'/chain.pem',
 		},
 
 		# systemd service file for /ecc/systemd/system
@@ -44,13 +40,11 @@ else:
 		project_name+'-staging.conf': {
 			'template': 'confgen_nginx.tmpl',
 			'venv': venv,
+			'project': project_name+'-staging',
 			'domain': domain_name,
-			'log_prefix': project_name+'-staging',
 			'port': 81,
 			'ssl': False,
 			'ssl_port': 444,
-			'ssl_key_bundle': venv + '/stagingkeys/fullchain.pem',
-			'ssl_private_key': venv + '/stagingkeys/privkey.pem',
 		},
 
 		# systemd service file for /ecc/systemd/system

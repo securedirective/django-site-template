@@ -2,7 +2,7 @@ bin/
 include/
 lib/
 pip-selfcheck.json
-development.sqlite3
+*.sqlite3
 collected_static
 uploaded_media
 

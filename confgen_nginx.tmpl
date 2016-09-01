@@ -13,9 +13,9 @@ server {
 	listen									{{ ssl_port }} ssl;
 	include									{{ venv }}/ssl.conf;
 	ssl on;
-	{% if ssl_key_bundle %}ssl_certificate							{{ ssl_key_bundle }};{% endif %}
-	{% if ssl_private_key %}ssl_certificate_key						{{ ssl_private_key }};{% endif %}
-	{% if ssl_trusted_ca_cert %}ssl_trusted_certificate					{{ ssl_trusted_ca_cert }};{% endif %}
+	ssl_certificate							/etc/letsencrypt/live/{{ domain }}/fullchain.pem;
+	ssl_certificate_key						/etc/letsencrypt/live/{{ domain }}/privkey.pem;
+	ssl_trusted_certificate					/etc/letsencrypt/live/{{ domain }}/chain.pem;
 {% else %}
 	listen									{{ port }};
 {% endif %}
@@ -24,8 +24,8 @@ server {
 
 	charset									utf-8;
 
-	error_log								/var/log/nginx/{{ log_prefix }}-error.log;
-	access_log								/var/log/nginx/{{ log_prefix }}-access.log;
+	error_log								/var/log/nginx/{{ project }}-error.log;
+	access_log								/var/log/nginx/{{ project }}-access.log;
 
 	# max upload size
 	client_max_body_size					75M;   # adjust to taste
