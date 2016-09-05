@@ -103,11 +103,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # Location to collect static files to when the collectstatic command is run
 STATIC_ROOT = os.path.join(VENV_DIR, "collected_static")
-STATICFILES_DIRS = (
-	# Include the static directory in the list of directories that 'python manage.py collectstatic'
-	#     copies files from (each app's static directory is already included by default)
-	os.path.join(BASE_DIR, "system", "static"),
-)
 
 # Base URL to use for media files; access from templates with {{ MEDIA_URL }} if django.template.context_processors.media is configured
 MEDIA_URL = '/media/'
