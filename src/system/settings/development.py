@@ -1,5 +1,6 @@
 from .base import *
-_CONFIG_FILE = "development"
+
+CONFIG_FILE_IN_USE = os.path.splitext(os.path.basename(__file__))[0]
 
 DEBUG = True
 
