@@ -1,7 +1,20 @@
 from .base import *
-
 CONFIG_FILE_IN_USE = os.path.splitext(os.path.basename(__file__))[0]
 
+# Settings for dynamically-generated config files
+PROJECT_NAME = 'djangotemplate'
+DOMAIN_NAME = 'djangotemplate.tech'
+WEB_USER = 'dt'
+WEB_GROUP = 'dt'
+HTTP_PORT = 80
+HTTPS_PORT = 443
+HTTPS_ENABLED = False
+DYNAMIC_CONFIGS = (
+	{'template':'nginx.conf.tmpl',		'output':PROJECT_NAME+'.conf'},
+	{'template':'uwsgi.service.tmpl',	'output':PROJECT_NAME+'.service'},
+)
+
+# Never use debug mode in production
 DEBUG = False
 
 # Import key from an external file, so it doesn't get included in version control
@@ -9,7 +22,7 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'secretkey.tx
 	SECRET_KEY = f.read().strip()
 
 # Restrict host/domain names
-ALLOWED_HOSTS = ['.djangotemplate.tech']
+ALLOWED_HOSTS = ['www.' + DOMAIN_NAME]
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases

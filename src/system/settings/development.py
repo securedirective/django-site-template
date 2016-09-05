@@ -1,7 +1,7 @@
 from .base import *
-
 CONFIG_FILE_IN_USE = os.path.splitext(os.path.basename(__file__))[0]
 
+# Debug mode will help troubleshoot errors
 DEBUG = True
 
 # Must have some key, so we'll just use bogus one
