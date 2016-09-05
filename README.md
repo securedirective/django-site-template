@@ -185,20 +185,24 @@ Collect static files from your various apps and packages into one directory for 
 
 Symlink the dynamic configs to the appropriate places and start the uWSGI server (you'll have to run these as root):
 ```
-ln -s /home/dt/djangotemplate-staging/djangotemplate-staging.conf /etc/nginx/sites-available/djangotemplate-staging.conf
-ln -s /etc/nginx/sites-available/djangotemplate-staging.conf /etc/nginx/sites-enabled/djangotemplate-staging.conf
-ln -s /home/dt/djangotemplate-staging/djangotemplate-staging.service /etc/systemd/system/djangotemplate-staging.service
+venv=/home/dt/djangotemplate-staging
+ln -sf $venv/djangotemplate-staging.conf /etc/nginx/sites-available/djangotemplate-staging.conf
+ln -sf /etc/nginx/sites-available/djangotemplate-staging.conf /etc/nginx/sites-enabled/djangotemplate-staging.conf
+ln -sf $venv/djangotemplate-staging.service /etc/systemd/system/djangotemplate-staging.service
 systemctl daemon-reload
 systemctl start djangotemplate-staging
+systemctl reload nginx
 ```
 
 For your production environment, do the same thing witohut the `-staging` prefixes:
 ```
-ln -s /home/dt/djangotemplate/djangotemplate.conf /etc/nginx/sites-available/djangotemplate.conf
-ln -s /etc/nginx/sites-available/djangotemplate.conf /etc/nginx/sites-enabled/djangotemplate.conf
-ln -s /home/dt/djangotemplate/djangotemplate.service /etc/systemd/system/djangotemplate.service
+venv=/home/dt/djangotemplate
+ln -sf $venv/djangotemplate.conf /etc/nginx/sites-available/djangotemplate.conf
+ln -sf /etc/nginx/sites-available/djangotemplate.conf /etc/nginx/sites-enabled/djangotemplate.conf
+ln -sf $venv/djangotemplate.service /etc/systemd/system/djangotemplate.service
 systemctl daemon-reload
 systemctl start djangotemplate
+systemctl reload nginx
 ```
 
 
