@@ -13,9 +13,8 @@ server {
 	listen									{{ settings.HTTPS_PORT }} ssl;
 	include									{{ settings.VENV_DIR }}/ssl.conf;
 	ssl on;
-	ssl_certificate							/etc/letsencrypt/live/{{ settings.DOMAIN_NAME }}/fullchain.pem;
-	ssl_certificate_key						/etc/letsencrypt/live/{{ settings.DOMAIN_NAME }}/privkey.pem;
-	ssl_trusted_certificate					/etc/letsencrypt/live/{{ settings.DOMAIN_NAME }}/chain.pem;
+	ssl_certificate							{{ settings.VENV_DIR }}/demo_keys/server.crt;
+	ssl_certificate_key						{{ settings.VENV_DIR }}/demo_keys/server.key;
 {% else %}
 	listen									{{ settings.HTTP_PORT }};
 {% endif %}
