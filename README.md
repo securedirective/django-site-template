@@ -61,7 +61,7 @@ Lastly, note that this template has **only been tested on Python 3.4.x**
 
 ## How to Use
 
-This template is designed to be used within a Python [virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/) (venv) to keep everything self-contained. It is recommended that the virtual environment's root is also your git repo's root, with a `.gitignore` configured to exclude the `bin`, `lib`, and `include` directories. Keep any sensitive information (keys, passwords) in their own files that can be excluded form the repo.
+This template is designed to be used within a Python [virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/) (venv) to keep everything self-contained. It is recommended that the virtual environment's root is also your git repo's root, with a `.gitignore` configured to exclude the `bin`, `lib`, and `include` directories. Keep any sensitive information (keys, passwords) in their own files that can be excluded from the repo.
 
 
 
@@ -77,7 +77,7 @@ The development environment obviously has some unique characteristics, compared 
 * DEBUG is True by default.
 * Access at `http://<IP>:8000/`.
 * Has no secure version of the site.
-* Django's server will show any runtime errors in the console rather then logging them to a file.
+* Django's server will show any runtime errors in the console rather than logging them to a file.
 
 First, create a new directory for your virtual environment and `cd` inside it:
 ```
@@ -119,7 +119,7 @@ At this point, you should be able to run Django's internal development server us
 ./devserver
 ```
 
-If you load `http://localhost:8000`, the sample home page should show that your are using the 'development' settings file, and the next line should be green since Django is serving the static content itself.
+If you load `http://localhost:8000`, the sample home page should show that you are using the 'development' settings file, and the next line should be green since Django is serving the static content itself.
 
 If all is working adapt the project to your needs by searching for any references to `djangotemplate` or `dt` and replace with the names of your project. Then commit that to the repo
 ```
@@ -194,7 +194,7 @@ systemctl start djangotemplate-staging
 systemctl reload nginx
 ```
 
-For your production environment, do the same thing witohut the `-staging` prefixes:
+For your production environment, do the same thing without the `-staging` prefixes:
 ```
 venv=/home/dt/djangotemplate
 ln -sf $venv/djangotemplate.conf /etc/nginx/sites-available/djangotemplate.conf
