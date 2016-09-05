@@ -24,6 +24,8 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'secretkey.tx
 # Restrict host/domain names
 ALLOWED_HOSTS = ['www.' + DOMAIN_NAME]
 
+PREPEND_WWW = True
+
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 DATABASES = {
