@@ -3,7 +3,7 @@
 server {
 	listen									{{ settings.HTTP_PORT }};
 	server_name								.{{ settings.DOMAIN_NAME }};
-	return									301 https://www.{{ settings.DOMAIN_NAME }}$request_uri;
+	return									301 https://www.{{ settings.DOMAIN_NAME }}:{{ settings.HTTPS_PORT }}$request_uri;
 }
 {% endif %}
 
