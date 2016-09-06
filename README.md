@@ -190,8 +190,7 @@ pip install -r requirements.txt
 
 Initialize the `secretkey.txt` file to hold Django's secret key outside of source control:
 ```
-echo null > src/system/settings/secretkey.txt
-./m rotate_secret_key
+echo null > src/system/settings/secretkey.txt && ./m rotate_secret_key --force
 ```
 
 Initialize the database with the latest information from the models:
