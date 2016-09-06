@@ -57,7 +57,7 @@ On top of that basic concept, I've added many tools to ease the deployment of a 
 * `./fixattr`: A simple bash script to run `chmod +x` on those files that should be executable, such as `./m`. I created this because file permissions get messed up by some text editors when editing your code on a remote Windows computer through a samba share.
 * `./devserver`: Just a shortcut to running `python src/manage.py runserver 0.0.0.0:8000 --settings system.settings.development`.
 * `./m generate_configs`: A custom Django management command to generate some config files from templates, allowing you to have slightly different configs for production and staging environments. Define which configs should be dynamically created by adding `DYNAMIC_CONFIGS` to your settings file.
-* `./m rotate_secret_key`: A custom Django management command to create/rotate the `SECRET_KEY` found in `src/system/settings/secretkey.txt`. This allows you to keep your secret key out of source control without manually editing your settings file.
+* `./m rotate_secret_key`: A custom Django management command to rotate the `SECRET_KEY` found in `src/system/settings/secretkey.txt`. This allows you to keep your secret key out of source control without manually editing your settings file.
 
 Throughout this documentation, I've used a `$PROJECT` variable to refer to the `djangotemplate-dev`, `djangotemplate-staging`, or `djangotemplate` as much as possible to make it easy for you to copy and paste these commands right into your terminal after adjusting `$PROJECT` to your own project name.
 
@@ -190,6 +190,7 @@ pip install -r requirements.txt
 
 Initialize the `secretkey.txt` file to hold Django's secret key outside of source control:
 ```
+echo null > src/system/settings/secretkey.txt
 ./m rotate_secret_key
 ```
 
