@@ -304,13 +304,13 @@ openssl req -new -key server.key -out demo.csr  # Enter djangotemplate.tech as t
 openssl x509 -req -days 365 -in demo.csr -signkey server.key -out demo.crt
 ```
 
-Then add this to your `nginx.conf.tmpl`:
+Then add this to your `src/system/settings/nginx.conf.tmpl`:
 ```
 ssl_certificate       {{ settings.VENV_DIR }}/ssl_keys/demo.crt;
 ssl_certificate_key   {{ settings.VENV_DIR }}/ssl_keys/server.key;
 ```
 
-Lastly, add `HTTPS_ENABLED = True` to `src/settings/production.py` and regenerate the config files:
+Lastly, add `HTTPS_ENABLED = True` to `src/system/settings/production.py` and regenerate the config files:
 ```
 ./m generate_configs
 ```

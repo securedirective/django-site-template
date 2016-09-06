@@ -8,7 +8,7 @@ WEB_USER = 'dt'
 WEB_GROUP = 'dt'
 HTTP_PORT = 80
 HTTPS_PORT = 443
-HTTPS_ENABLED = True
+HTTPS_ENABLED = False
 DYNAMIC_CONFIGS = (
 	{'template':'nginx.conf.tmpl',		'output':PROJECT_NAME+'.conf'},
 	{'template':'uwsgi.service.tmpl',	'output':PROJECT_NAME+'.service'},
