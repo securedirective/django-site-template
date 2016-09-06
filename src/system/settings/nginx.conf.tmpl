@@ -13,8 +13,8 @@ server {
 	listen									{{ settings.HTTPS_PORT }} ssl;
 	include									{{ settings.VENV_DIR }}/ssl.conf;
 	ssl on;
-	ssl_certificate							{{ settings.VENV_DIR }}/demo_keys/server.crt;
-	ssl_certificate_key						{{ settings.VENV_DIR }}/demo_keys/server.key;
+	ssl_certificate							{{ settings.VENV_DIR }}/ssl_keys/demo.crt;
+	ssl_certificate_key						{{ settings.VENV_DIR }}/ssl_keys/server.key;
 {% else %}
 	listen									{{ settings.HTTP_PORT }};
 {% endif %}

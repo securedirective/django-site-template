@@ -2,7 +2,6 @@ from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
 	help = 'Generate configuration files from templates'
-	pn_placeholder = '[PROJECT_NAME]'
 
 	def handle(self, *args, **options):
 		import os
@@ -25,13 +24,8 @@ class Command(BaseCommand):
 
 			# Default directories if not specified
 			try:
-				config['template'] = config['template'].replace(self.pn_placeholder, settings.PROJECT_NAME)
 				if not config['template'].startswith('/'): config['template'] = os.path.join(settings.BASE_DIR, 'system', 'settings', config['template'])
-
-				config['output'] = config['output'].replace(self.pn_placeholder, settings.PROJECT_NAME)
 				if not config['output'].startswith('/'): config['output'] = os.path.join(settings.VENV_DIR, config['output'])
-
-				if 'symlink' in config: config['symlink'] = config['symlink'].replace(self.pn_placeholder, settings.PROJECT_NAME)
 			except KeyError as e:
 				self.stderr.write("'template' or 'output' parameters not specified: "+repr(config))
 				continue # Go on to the next config file
