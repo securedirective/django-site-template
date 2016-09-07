@@ -16,7 +16,7 @@ The first commit of this repo was made immediately after running the following c
 ```
 \t=djangotemplate
 mkdir $PROJECT && cd $PROJECT
-virtualenv --python=python3 . && source bin/activate
+virtualenv --python=python3 . && . bin/activate
 pip install django
 django-admin startproject $PROJECT
 cd $PROJECT && python manage.py startapp sampleapp && cd ..
@@ -90,14 +90,15 @@ PROJECT=djangotemplate-dev
 mkdir $PROJECT && cd $PROJECT
 ```
 
-Then clone this repository (must be done first, while the directory is still empty):
+Then copy this template in without the commit history (since you'll be starting your own repo anyway):
 ```
-git clone https://github.com/securedirective/django-site-template.git ./
+git clone --depth=1 https://github.com/securedirective/django-site-template.git ./
+rm -rf .git
 ```
 
-Then run these commands to initialize the venv:
+Run these commands to initialize the venv:
 ```
-virtualenv --python=python3 . && source bin/activate
+virtualenv --python=python3 . && . bin/activate
 pip install -r requirements.txt
 ```
 
@@ -118,12 +119,6 @@ If you load `http://localhost:8000`, the sample home page should show that you a
 
 ### Adapt to Your Project
 
-If you would like to start a clean repository, so the commits of this template don't show up in your own commit log, do this:
-```
-rm -rf ./.git
-git init
-```
-
 Now, search for any references to `djangotemplate` or `dt`, and replace with the names of your project:
 ```
 grep -RIn -e djangotemplate -e dt --exclude=README.md --exclude-dir=".git" --exclude-dir="bin" --exclude-dir="include" --exclude-dir="lib" --exclude-dir="__pycache__" *
@@ -136,6 +131,7 @@ rm README.md
 
 At this point, you should commit these changes before you go any further:
 ```
+git init
 git add -A
 git commit -m "Initial commit, based on django-site-template"
 ```
@@ -184,7 +180,7 @@ git clone <div_environment> ./
 
 Finish the initialize:
 ```
-virtualenv --python=python3 . && source bin/activate
+virtualenv --python=python3 . && . bin/activate
 pip install -r requirements.txt
 ```
 
