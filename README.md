@@ -1,11 +1,11 @@
-# Django Site Template
+# Django Site Template #
 
 Status: **Built with Django v1.10**
 
 
 
 
-## Overview
+## Overview ##
 
 This template was created to address the initial difficulty in transitioning a new project created with Django's `startproject` command into a project ready to deploy to a production server. Throughout this template and documentation, the project name is `djangotemplate`, and the domain name is the fictitious `djangotemplate.tech`. Change this for your project.
 
@@ -14,12 +14,12 @@ Note that this template has **only been tested on Python 3.4.x on a Debian-based
 The first commit of this repo was made immediately after running the following commands:
 
 ```
-\t=djangotemplate
-mkdir $PROJECT && cd $PROJECT
-virtualenv --python=python3 . && . bin/activate
-pip install django
-django-admin startproject $PROJECT
-cd $PROJECT && python manage.py startapp sampleapp && cd ..
+$ PROJECT=djangotemplate
+$ mkdir $PROJECT && cd $PROJECT
+$ virtualenv --python=python3 . && . bin/activate
+$ pip install django
+$ django-admin startproject $PROJECT
+$ cd $PROJECT && python manage.py startapp sampleapp && cd ..
 ```
 
 This way, when Django updates to a new version, you can follow the same steps and compare the result to the first commit to see exactly what Django may have changed about their default project template.
@@ -64,14 +64,14 @@ Throughout this documentation, I've used a `$PROJECT` variable to refer to the `
 
 
 
-## How to Use
+## How to Use ##
 
 This template is designed to be used within a Python [virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/) (venv) to keep everything self-contained. It is recommended that the virtual environment's root is also your git repo's root, with a `.gitignore` configured to exclude the `bin`, `lib`, and `include` directories. Keep any sensitive information (keys, passwords) in their own files that can be excluded from the repo.
 
 
 
 
-### Initial Setup of Development Environment
+### Initial Setup of Development Environment ###
 
 The development environment obviously has some unique characteristics, compared with the production/staging environments, to make things easy to work with:
 * Run the server with `./devserver`. This will launch Django's internal server which hosts both your application and all static files.
@@ -86,66 +86,68 @@ The development environment obviously has some unique characteristics, compared 
 
 First, create a new directory for your virtual environment and `cd` inside it:
 ```
-PROJECT=djangotemplate-dev
-mkdir $PROJECT && cd $PROJECT
+$ PROJECT=djangotemplate-dev
+$ mkdir $PROJECT && cd $PROJECT
 ```
 
 Then copy this template in without the commit history (since you'll be starting your own repo anyway):
 ```
-git clone --depth=1 https://github.com/securedirective/django-site-template.git ./
-rm -rf .git
+$ git clone --depth=1 https://github.com/securedirective/django-site-template.git ./
+$ rm -rf .git
 ```
 
 Run these commands to initialize the venv:
 ```
-virtualenv --python=python3 . && . bin/activate
-pip install -r requirements.txt
+$ virtualenv --python=python3 . && . bin/activate
+$ pip install -r requirements.txt
 ```
 
 Initialize the database
 ```
-./m migrate
+$ ./m migrate
 ```
 
 At this point, you should be able to run Django's internal development server using another useful shortcut script.
 ```
-./devserver
+$ ./devserver
 ```
 
 If you load `http://localhost:8000`, the sample home page should show that you are using the 'development' settings file, and the next line should be green since Django is serving the static content itself.
 
+Now, if you aren't doing your development on your local machine, there is still a relatively easy way to access the development server without exposing it to the internet. [PuTTY](http://www.putty.org/) and [KiTTY](http://kitty.9bis.net/) both have a port tunneling feature that forwards all requests to **your** `127.0.0.1:<port>` to the **remote server's** `127.0.0.1:<port>` as if you were on the remote server accessing it there. Before connecting via SSH, go into the *Connection > SSH > Tunnels* section of the PuTTY/KiTTY profile and add `L8000 127.0.0.1:8000`. Now, as long as you have the console window open and logged in, the tunnel will be enabled.
 
 
 
-### Adapt to Your Project
+
+### Adapt to Your Project ###
 
 Now, search for any references to `djangotemplate` or `dt`, and replace with the names of your project:
 ```
-grep -RIn -e djangotemplate -e dt --exclude=README.md --exclude-dir=".git" --exclude-dir="bin" --exclude-dir="include" --exclude-dir="lib" --exclude-dir="__pycache__" *
+$ grep -RIn -e djangotemplate -e dt --exclude=README.md --exclude-dir=".git" --exclude-dir="bin" --exclude-dir="include" --exclude-dir="lib" --exclude-dir="__pycache__" *
 ```
 
 You may also want to remove the `README.md` so you can start your own:
 ```
-rm README.md
+$ rm README.md
 ```
 
 At this point, you should commit these changes before you go any further:
 ```
-git init
-git add -A
-git commit -m "Initial commit, based on django-site-template"
+$ git init
+$ git add -A
+$ git commit -m "Initial commit, based on django-site-template"
 ```
 
 If you use Github for your source control, you'll probably want to add/change your remote link and push your changes to the server:
 ```
-git remote add origin https://github.com/<your_repo>.git
-git push --set-upstream origin master
+$ git remote add origin https://github.com/<your_repo>.git
+$ git push --set-upstream origin master
 ```
 
 
 
 
-### Production/Staging
+### Production/Staging ###
 
 The production/staging environments are configured differently from the development environment:
 * Start the website using systemd: `systemctl start $PROJECT`.
@@ -169,67 +171,69 @@ Now, to actually setup your staging environment...
 
 Create a new staging environment and initialize it like you did with the development environment:
 ```
-PROJECT=djangotemplate-staging
-mkdir $PROJECT && cd $PROJECT
+$ PROJECT=djangotemplate-staging
+$ mkdir $PROJECT && cd $PROJECT
 ```
 
 Instead of cloning this template as your starting point, though, clone your own repository so it includes any changes you've made there:
 ```
-git clone <div_environment> ./
+$ git clone <div_environment> ./
 ```
 
 Finish the initialize:
 ```
-virtualenv --python=python3 . && . bin/activate
-pip install -r requirements.txt
+$ virtualenv --python=python3 . && . bin/activate
+$ pip install -r requirements.txt
 ```
 
 Initialize the `secretkey.txt` file to hold Django's secret key outside of source control:
 ```
-echo null > src/system/settings/secretkey.txt && ./m rotate_secret_key --force
+$ echo null > src/system/settings/secretkey.txt && ./m rotate_secret_key --force
 ```
 
 Initialize the database with the latest information from the models:
 ```
-./m migrate
+$ ./m migrate
 ```
 
 Initialize the config files that must be dynamically created:
 ```
-./m generate_configs
+$ ./m generate_configs
 ```
 
 Run Django's deployment check. It may complain about things that the `ssl.conf` will take care of, so take it with a grain of salt:
 ```
-./m check --deploy
+$ ./m check --deploy
 ```
 
 Collect static files from your various apps and packages into one directory for nginx to server from:
 ```
-./m collectstatic --link
+$ ./m collectstatic --link
 ```
 
 Symlink the dynamic configs to the appropriate places and start the uWSGI server (you'll have to run these as root):
 ```
-PROJECT=djangotemplate-staging
-VENV=/home/dt/$PROJECT
-ln -sf $VENV/$PROJECT.conf /etc/nginx/sites-available/$PROJECT.conf
-ln -sf /etc/nginx/sites-available/$PROJECT.conf /etc/nginx/sites-enabled/$PROJECT.conf
-ln -sf $VENV/$PROJECT.service /etc/systemd/system/$PROJECT.service
-systemctl daemon-reload
-systemctl start $PROJECT
-systemctl reload nginx
+# PROJECT=djangotemplate-staging
+# VENV=/home/dt/$PROJECT
+# ln -sf $VENV/$PROJECT.conf /etc/nginx/sites-available/$PROJECT.conf
+# ln -sf /etc/nginx/sites-available/$PROJECT.conf /etc/nginx/sites-enabled/$PROJECT.conf
+# ln -sf $VENV/$PROJECT.service /etc/systemd/system/$PROJECT.service
+# systemctl daemon-reload
+# systemctl start $PROJECT
+# systemctl reload nginx
 ```
 
-
-
-
-## Troubleshooting
+As with the development server, you may not want to expose the staging server to the internet. Instead, use port tunneling as described above, along with an entry in your hosts file to your browser includes the proper domain name in the request. As an alternative to port tunneling, you could host it to the internet and use iptables to restrict access to only your IP address. As that is less secure and also harder to accomplish, it is not described here.
 
 
 
 
-### Error Logs
+## Troubleshooting ##
+
+
+
+
+### Error Logs ###
 
 When troubleshooting errors, it is vital you know where the logs are stored. Any errors with the systemd service or the uWSGI server will go to the systemd journal and can be accessed by running `systemctl status $PROJECT` or `journalctl -u $PROJECT`. You can have a running log on the screen with `journalctl -f -u $PROJECT`.
 
@@ -238,66 +242,66 @@ Any errors from nginx will go to `/var/log/nginx/$PROJECT-error.log`. Keep a run
 
 
 
-### Communication Paths
+### Communication Paths ###
 
 Run everything below from within the virtual environment...
 
 **Test your Django site**
 ```
-./devserver
-````
+$ ./devserver
+```
 
 Accessing your site on port 8000 should show the sample website. This tests the following path: `Client <-> VENV[ HTTP port 8000 <-> Django/DEV ]`
 
 **Test uWSGI by itself**
 ```
-uwsgi --http=:8000 --wsgi-file=uwsgi-test.py
-````
+$ uwsgi --http=:8000 --wsgi-file=uwsgi-test.py
+```
 
 Accessing your site on port 8000 should show "uWSGI Test successful". This tests the following path: `Client <-> VENV[ HTTP port 8000 <-> uWSGI <-> Python ]`
 
 **Test Django and uWSGI together**
 ```
-uwsgi --http=:8000 --chdir=./src --module=system.wsgi
-````
+$ uwsgi --http=:8000 --chdir=./src --module=system.wsgi
+```
 
 Accessing your site on port 8000 should show the sample website (static files will be broken, since the production config doesn't host those). This tests the following path: `Client <-> VENV[ `HTTP port 8000 <-> uWSGI <-> Django/WSGI ]
 
 **Test nginx by itself**
 ```
-systemctl start nginx
-````
+# systemctl start nginx
+```
 
 Accessing your site on port 80 should show nginx's default page when a site is not configured. This tests the following path: `Client <-> HTTP port 80 <-> nginx`
 
 **Test nginx and uWSGI together**
 ```
-systemctl start nginx
-uwsgi --socket=uwsgi.sock --chmod-socket=666 --wsgi-file=uwsgi-test.py
-````
+# systemctl start nginx
+$ uwsgi --socket=uwsgi.sock --chmod-socket=666 --wsgi-file=uwsgi-test.py
+```
 
 Accessing your site on port 80 should show the sample website. This tests the following path: `Client <-> HTTP port 80 <-> nginx <-> VENV[ Unix Socket uwsgi.sock <-> uWSGI <-> Python ]`
 
 **Test nginx with Django**
 ```
-systemctl start nginx
-./m collectstatic --link
-uwsgi --chdir=./src --socket=../uwsgi.sock --chmod-socket=666 --module=system.wsgi
-````
+# systemctl start nginx
+$ ./m collectstatic --link
+$ uwsgi --chdir=./src --socket=../uwsgi.sock --chmod-socket=666 --module=system.wsgi
+```
 
 Accessing your site on port 80 should show the sample website with static files working. This tests the following path: `Client <-> HTTP port 80 <-> nginx <-> VENV[ Unix Socket uwsgi.sock <-> uWSGI <-> Django/WSGI ]`
 
 
 
 
-## Self-signed Certificate
+## Self-signed Certificate ##
 
 In case you need to create/recreate a self-signed certificate for testing purposes, here's how:
 ```
-mkdir ssl_keys && cd ssl_keys
-openssl genrsa -out server.key 2048
-openssl req -new -key server.key -out demo.csr  # Enter djangotemplate.tech as the CN, leave others blank
-openssl x509 -req -days 365 -in demo.csr -signkey server.key -out demo.crt
+$ mkdir ssl_keys && cd ssl_keys
+$ openssl genrsa -out server.key 2048
+$ openssl req -new -key server.key -out demo.csr  # Enter djangotemplate.tech as the CN, leave others blank
+$ openssl x509 -req -days 365 -in demo.csr -signkey server.key -out demo.crt
 ```
 
 Then add this to your `src/system/settings/nginx.conf.tmpl`:
@@ -308,5 +312,5 @@ ssl_certificate_key   {{ settings.VENV_DIR }}/ssl_keys/server.key;
 
 Lastly, add `HTTPS_ENABLED = True` to `src/system/settings/production.py` and regenerate the config files:
 ```
-./m generate_configs
+$ ./m generate_configs
 ```
