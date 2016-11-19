@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+clr_reset="\E[0m"
+clr_error="\E[31m"
+clr_success="\E[32m"
+
+# Verify venv active
+if [[ "$VIRTUAL_ENV" = "" ]]; then
+	echo -e "${clr_error}Please activate your virtual environment before running this command.${clr_reset}"
+	exit
+fi
+cd $(dirname $0)
+
+# Determine which settings file to use
+settings_file="$(./whichenv)"
+
+# Build command string
+cmd1="export DJANGO_SETTINGS_MODULE=system.settings.$settings_file"
+cmd2="uwsgi --ini=../conf/generated/uwsgi.ini"
+echo -e "${clr_success}${cmd1}\n${cmd2}${clr_reset}\n"
+
+# Run the command if we're in the right environment
+if [[ "$settings_file" == "development" ]]; then
+	echo -e "${clr_error}The UWSGI server should only be used for staging and production environments.${clr_reset}"
+	exit
+fi
+$cmd1
+$cmd2

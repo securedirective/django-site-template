@@ -1,0 +1,17 @@
+[Unit]
+Description={{settings.DOMAIN_NAME}}
+After=syslog.target
+
+[Service]
+WorkingDirectory={{settings.CONF_DIR}}
+Environment=DJANGO_SETTINGS_MODULE=system.settings.{{settings.CONFIG_FILE_IN_USE}}
+ExecStart={{venv}}/bin/uwsgi --ini generated/uwsgi.ini
+User={{username}}
+Group={{groupname}}
+Restart=on-failure
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

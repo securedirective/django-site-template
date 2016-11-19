@@ -1,0 +1,13 @@
+[uwsgi]
+# Django stuff
+	chdir={{settings.BASE_DIR}}
+	module=system.wsgi
+# Load balancing
+	master=true
+	workers=2
+# Connection to web server
+	socket=127.0.0.1:{{settings.UWSGI_PORT}}
+# Logging
+	logto={{settings.DATA_DIR}}/uwsgi.log
+# Graceful reload
+	touch-reload={{settings.DATA_DIR}}/uwsgi.reload

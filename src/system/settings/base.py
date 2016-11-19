@@ -11,11 +11,18 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-CONFIG_FILE_IN_USE = os.path.splitext(os.path.basename(__file__))[0]
+def get_file_name_only(path):
+	return os.path.splitext(os.path.basename(path))[0]
+CONFIG_FILE_IN_USE = get_file_name_only(__file__)  # Custom setting
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-VENV_DIR = os.path.dirname(BASE_DIR)
+
+# Custom settings
+CONF_DIR = os.path.join(os.path.dirname(BASE_DIR), 'conf')
+DATA_DIR = os.path.join(os.path.dirname(BASE_DIR), 'data')
+PROJECT_NAME = 'djangotemplate'
+DOMAIN_NAME = 'djangotemplate.tech'
 
 
 # Application definition

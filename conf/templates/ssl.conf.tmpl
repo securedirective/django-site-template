@@ -20,7 +20,7 @@ ssl_prefer_server_ciphers on;
 ssl_ecdh_curve            secp384r1; # Requires nginx >= 1.1.0
 
 
-ssl_session_cache         shared:SSL:10m;
+ssl_session_cache         shared:SSL:50m;
 
 # https://timtaubert.de/blog/2014/11/the-sad-state-of-server-side-tls-session-resumption-implementations/
 # https://www.imperialviolet.org/2013/06/27/botchingpfs.html
@@ -54,8 +54,8 @@ resolver                  208.67.222.222 208.67.220.220 valid=300s;
 resolver_timeout          5s;
 
 # Protect against the Logjam attack
-# Generated with 'openssl dhparam -out dhparams.pem 2048'
-ssl_dhparam               /etc/ssl/certs/dhparams.pem;
+# Generated with 'openssl dhparam -out dhparams-2048.pem 2048' (should be the same bit length as your SSL key)
+ssl_dhparam               {{settings.CONF_DIR}}/secret/dhparams-2048.pem;
 
 
 

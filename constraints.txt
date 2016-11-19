@@ -1,0 +1,2 @@
+# Hold back major Django upgrades until full testing is completed
+Django~=1.10.0

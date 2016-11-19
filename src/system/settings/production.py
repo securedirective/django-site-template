@@ -1,29 +1,31 @@
 from .base import *
-CONFIG_FILE_IN_USE = os.path.splitext(os.path.basename(__file__))[0]
+CONFIG_FILE_IN_USE = get_file_name_only(__file__)  # Custom setting
 
-# Settings for dynamically-generated config files
-PROJECT_NAME = 'djangotemplate'
-DOMAIN_NAME = 'djangotemplate.tech'
-WEB_USER = 'dt'
-WEB_GROUP = 'dt'
+# Custom settings for dynamically-generated config files
+UWSGI_PORT = 9001
 HTTP_PORT = 80
 HTTPS_PORT = 443
-HTTPS_ENABLED = False
-DYNAMIC_CONFIGS = (
-	{'template':'nginx.conf.tmpl',		'output':PROJECT_NAME+'.conf'},
-	{'template':'uwsgi.service.tmpl',	'output':PROJECT_NAME+'.service'},
-)
+HTTPS_ENABLED = True
 
 # Never use debug mode in production
 DEBUG = False
 
 # Import key from an external file, so it doesn't get included in version control
-with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'secretkey.txt')) as f:
-	SECRET_KEY = f.read().strip()
+SECRET_KEY_FILE = os.path.join(CONF_DIR, 'secret', 'secretkey.txt')
+try:
+	with open(SECRET_KEY_FILE, 'r') as f:
+		SECRET_KEY = f.read().strip()
+except:
+	SECRET_KEY = '*** NOT CONFIGURED ***'
+	print("WARNING: the SECRET_KEY setting has not yet been configured!")
 
-# Restrict host/domain names
-ALLOWED_HOSTS = ['www.' + DOMAIN_NAME]
+# Specify the domain names Django will respond to
+ALLOWED_HOSTS = [
+  'www.' + DOMAIN_NAME,
+  DOMAIN_NAME,  # This one is required for PREPEND_WWW to work
+]
 
+# If the domain name doesn't start with "www." then add it
 PREPEND_WWW = True
 
 # Database
@@ -58,8 +60,9 @@ DATABASES = {
 }
 
 # Various settings needed to fix warnings from python manage.py check --settings system.settings.production --deploy
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+if HTTPS_ENABLED:
+	SESSION_COOKIE_SECURE = True
+	CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 SECURE_BROWSER_XSS_FILTER = True
 

@@ -1,5 +1,9 @@
-Django~=1.10.0
-uWSGI~=2.0.13
+# Include an external constraints file to limit versions where needed
+-c constraints.txt
+
+# Core
+Django									# https://docs.djangoproject.com/en/1.10/releases/
+uWSGI									# https://uwsgi-docs.readthedocs.io/en/latest/#stable-releases
 
 # Non-pypi packages
 -e ../django-generate-dynamic-configs/
