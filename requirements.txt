@@ -1,2 +1,7 @@
 Django~=1.10.0
 uWSGI~=2.0.13
+
+# Non-pypi packages
+-e ../django-generate-dynamic-configs/
+-e ../django-maint-mode-toggle/
+-e ../django-rotate-secret-key/
