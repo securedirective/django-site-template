@@ -21,8 +21,8 @@ except:
 
 # Specify the domain names Django will respond to
 ALLOWED_HOSTS = [
-  'www.' + DOMAIN_NAME,
-  DOMAIN_NAME,  # This one is required for PREPEND_WWW to work
+	'www.' + DOMAIN_NAME,
+	DOMAIN_NAME,  # This one is required for PREPEND_WWW to work
 ]
 
 # If the domain name doesn't start with "www." then add it

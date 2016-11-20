@@ -25,6 +25,22 @@ PROJECT_NAME = 'djangotemplate'
 DOMAIN_NAME = 'djangotemplate.tech'
 
 
+# Email
+# All outbound email will have this as the From: header, unless overridden
+DEFAULT_FROM_EMAIL = '"' + PROJECT_NAME + '" <support@' + DOMAIN_NAME + '>'
+
+# People who should receive website error notifications
+ADMINS = [
+	('Admin', 'admin@' + DOMAIN_NAME),
+]
+
+# Separate list of admins who should receive broken link notifications
+MANAGERS = ADMINS
+
+# Emails sent to ADMINS and MANAGERS will come from this address
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -56,6 +72,7 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'django.middleware.common.BrokenLinkEmailsMiddleware',  # Notify MANAGERS of 404 errors, when DEBUG=False and the request includes a referer. Must come before any middleware that intercepts 404 errors, such as LocaleMiddleware or FlatpageFallbackMiddleware
 ]
 
 ROOT_URLCONF = 'system.urls'

@@ -13,7 +13,7 @@ SECRET_KEY = '00000000000000000000000000000000000000000000000000'
 # Specify the domain names Django will respond to
 ALLOWED_HOSTS = [
 	'localhost', '127.0.0.1',   # Access from same machine
-	'192.168.224.102',
+	# '192.168.224.102',			# Access dev VM from external device
 ]
 
 # Database
@@ -27,6 +27,7 @@ DATABASES = {
 	},
 }
 
-# Save emails to files instead of actually sending them
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# Emails
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'	# Show contents of all emails on the console instead of actuall sending them
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'	# Save emails to files instead of actually sending them
 EMAIL_FILE_PATH = os.path.join(DATA_DIR, 'emails')
