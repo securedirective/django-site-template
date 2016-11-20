@@ -1,4 +1,5 @@
 /.venv/
+/custom-packages/
 /data/development.sqlite3
 /conf/whichenv.txt
 __pycache__/

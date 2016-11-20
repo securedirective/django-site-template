@@ -6,6 +6,6 @@ Django									# https://docs.djangoproject.com/en/1.10/releases/
 uWSGI									# https://uwsgi-docs.readthedocs.io/en/latest/#stable-releases
 
 # Non-pypi packages
-custom-packages/django-generate-dynamic-configs/
-custom-packages/django-maint-mode-toggle/
-custom-packages/django-rotate-secret-key/
+-e custom-packages/django-generate-dynamic-configs/
+-e custom-packages/django-maint-mode-toggle/
+-e custom-packages/django-rotate-secret-key/
