@@ -1,22 +1,5 @@
-# Virtual environment
 /.venv/
-
-# Data directory
-#/data/
-
-# Config directory
-#/conf/
-
-# Temporary files
-__pycache__/
-*.pyc
-
-
-
-
-
-
-
-# The lines below should be removed when you start your own project
 /data/development.sqlite3
 /conf/whichenv.txt
+__pycache__/
+*.pyc

@@ -1,0 +1,12 @@
+# Virtual environment
+/.venv/
+
+# Data directory
+/data/
+
+# Config directory
+/conf/
+
+# Temporary files
+__pycache__/
+*.pyc

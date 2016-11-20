@@ -11,6 +11,6 @@ HTTPS_PORT = 444
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': os.path.join(VENV_DIR, 'staging.sqlite3'),
+		'NAME': os.path.join(DATA_DIR, 'staging.sqlite3'),
 	},
 }

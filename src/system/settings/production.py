@@ -35,7 +35,7 @@ DATABASES = {
 	# https://docs.djangoproject.com/en/1.10/ref/databases/#sqlite-notes
 	'default': {
 		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': os.path.join(VENV_DIR, 'production.sqlite3'),
+		'NAME': os.path.join(DATA_DIR, 'production.sqlite3'),
 	},
 	# MySQL/MariaDB backend (must also install the mysqlclient pip package)
 	# https://docs.djangoproject.com/en/1.10/ref/databases/#mysql-notes

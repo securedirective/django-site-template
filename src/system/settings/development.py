@@ -13,6 +13,7 @@ SECRET_KEY = '00000000000000000000000000000000000000000000000000'
 # Specify the domain names Django will respond to
 ALLOWED_HOSTS = [
 	'localhost', '127.0.0.1',   # Access from same machine
+	'192.168.224.102',
 ]
 
 # Database
@@ -22,7 +23,7 @@ DATABASES = {
 	# https://docs.djangoproject.com/en/1.10/ref/databases/#sqlite-notes
 	'default': {
 		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': os.path.join(VENV_DIR, 'development.sqlite3'),
+		'NAME': os.path.join(DATA_DIR, 'development.sqlite3'),
 	},
 }
 

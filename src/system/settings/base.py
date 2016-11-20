@@ -28,6 +28,7 @@ DOMAIN_NAME = 'djangotemplate.tech'
 # Application definition
 
 INSTALLED_APPS = [
+	# Django stuff
 	'django.contrib.admin',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
@@ -35,8 +36,16 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 
+	# Our core app
 	'system',
+
+	# Extra apps
 	'sampleapp',
+
+	# Custom Django extensions
+	'django_rotate_secret_key',
+	'django_maint_mode_toggle',
+	'django_generate_dynamic_configs',
 ]
 
 MIDDLEWARE = [
@@ -109,9 +118,9 @@ USE_TZ = True
 # Base URL to use for static files when {% static '<file>' %} is used
 STATIC_URL = '/static/'
 # Location to collect static files to when the collectstatic command is run
-STATIC_ROOT = os.path.join(VENV_DIR, "collected_static")
+STATIC_ROOT = os.path.join(DATA_DIR, "static")
 
 # Base URL to use for media files; access from templates with {{ MEDIA_URL }} if django.template.context_processors.media is configured
 MEDIA_URL = '/media/'
 # Location to hold user-uploaded files
-MEDIA_ROOT = os.path.join(VENV_DIR, "uploaded_media")
+MEDIA_ROOT = os.path.join(DATA_DIR, "media")
